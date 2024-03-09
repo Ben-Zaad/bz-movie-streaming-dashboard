@@ -26,16 +26,16 @@ export const PopupMovieItem: React.FC<MovieItem> = (
   return (
     <div
       onClick={() => selectMovie(id)}
-      className='flex bg-white rounded-md overflow-hidden w-5/6 m-4'
+      className='flex flex-col bg-white border border-gray-300 rounded-md overflow-hidden shadow-md w-5/6 m-4 hover:shadow-lg sm:flex-row'
     >
-      <div className='flex-shrink-0 w-1/2 overflow-hidden'>
+      <div className='sm:w-1/2 overflow-hidden'>
         <img
           src={largeimage}
           alt={title}
-          className='w-full h-full object-cover border p-2'
+          className='w-full h-full object-cover border border-gray-300 p-2'
         />
       </div>
-      <div className='flex flex-col w-1/2 p-4'>
+      <div className='flex flex-col w-full p-4 sm:w-1/2'>
         <h2 className='text-lg font-semibold mb-2'>
           {title}
         </h2>
