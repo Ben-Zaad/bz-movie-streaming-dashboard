@@ -13,13 +13,14 @@ import Popup from '../../components/popups/Popup';
 import { PopupMovieItem } from './PopupMovieItem';
 
 import logo from '../../assets/images/logo192.png';
+import Header from '../../components/header/Header';
 
 export const MoviesDashboardPage = () => {
   const {
     movies,
     filterValue,
     searchError,
-    isLoading,
+    moviesIsLoading,
     selectedMovieId,
     selectedMovie,
     setFilterValue,
@@ -27,22 +28,6 @@ export const MoviesDashboardPage = () => {
     setSearchError,
     selectMovie,
   } = useContext(MoviesContext);
-
-  const [isMobile, setIsMobile] = useState(
-    window.innerWidth <= 768
-  );
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   const handleSearch = (e: any) => {
     e.preventDefault();
@@ -52,11 +37,12 @@ export const MoviesDashboardPage = () => {
 
   return (
     <div>
+      <Header />
       {selectedMovieId && selectedMovie?.id && (
         <Popup
           isOpen={!!selectedMovie.id}
           onClose={() => selectMovie('')}
-          // Apply custom style for mobile
+          returnText='Back To List'
         >
           <PopupMovieItem
             title={selectedMovie.title}
@@ -74,24 +60,6 @@ export const MoviesDashboardPage = () => {
           />
         </Popup>
       )}
-
-      <div className='flex flex-row bg-slate-200 h-30'>
-        <img
-          className='w-20 h-20 rounded-full p-2'
-          src={logo}
-        />
-        <div className='flex flex-col justify-end	'>
-          <h1>BZ Movie Dashboard</h1>
-          <CustomInput
-            label='Search Movie By Name'
-            value={filterValue}
-            setValue={setFilterValue}
-            isLoading={isLoading}
-            handleSearch={handleSearch}
-          />
-          <InputError searchError={searchError} />
-        </div>
-      </div>
       <BackToTopButton />
       <div className='flex flex-wrap justify-center w-5/5'>
         {movies.map((movie: MovieItem) => {

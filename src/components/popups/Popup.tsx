@@ -3,6 +3,7 @@ import React from 'react';
 type PopupProps = {
   isOpen: boolean;
   onClose: () => void;
+  returnText: string;
   children: React.ReactNode;
 };
 
@@ -10,6 +11,7 @@ const Popup: React.FC<PopupProps> = ({
   isOpen,
   onClose,
   children,
+  returnText,
 }) => {
   const handlePopupClose = () => {
     onClose();
@@ -26,7 +28,7 @@ const Popup: React.FC<PopupProps> = ({
             onClick={handlePopupClose}
             className='text-gray-600 hover:text-gray-800 focus:outline-none'
           >
-            Close
+            ⬅️{returnText}
           </button>
         </div>
       </div>

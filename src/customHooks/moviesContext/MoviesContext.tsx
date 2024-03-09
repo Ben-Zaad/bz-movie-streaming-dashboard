@@ -15,7 +15,7 @@ interface MoviesProviderProps {
 }
 
 interface MoviesContext {
-  isLoading: Boolean;
+  moviesIsLoading: Boolean;
   movies: MovieItem[];
   filterValue: string;
   searchError: string;
@@ -28,7 +28,7 @@ interface MoviesContext {
 }
 
 const initialContext: MoviesContext = {
-  isLoading: false,
+  moviesIsLoading: false,
   movies: [],
   filterValue: '',
   searchError: '',
@@ -53,11 +53,11 @@ const MoviesProvider = ({
     getQueryParams('selectedMovieId')
   );
   const [selectedMovie, setSeletedMovie] = useState(null);
-  const [isLoading, setIsLoading] =
+  const [moviesIsLoading, setmoviesIsLoading] =
     useState<boolean>(false);
 
   const getMovies = async () => {
-    setIsLoading(true);
+    setmoviesIsLoading(true);
 
     const res = await apiGetAllMovies().catch(
       function (error) {
@@ -65,11 +65,11 @@ const MoviesProvider = ({
       }
     );
     setMovies(res?.data);
-    setIsLoading(false);
+    setmoviesIsLoading(false);
   };
 
   const getMovieById = async (id: string) => {
-    setIsLoading(true);
+    setmoviesIsLoading(true);
 
     const res = await apiGetMovieById(id).catch(
       function (error) {
@@ -78,7 +78,7 @@ const MoviesProvider = ({
     );
     console.log('FIND ME RES', res);
     setSeletedMovie(res?.data[0]);
-    setIsLoading(false);
+    setmoviesIsLoading(false);
   };
 
   const selectMovie = (selectedMovieId: string) => {
@@ -100,7 +100,7 @@ const MoviesProvider = ({
   return (
     <MoviesContext.Provider
       value={{
-        isLoading,
+        moviesIsLoading,
         movies,
         filterValue,
         searchError,
