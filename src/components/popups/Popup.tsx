@@ -19,7 +19,7 @@ const Popup: React.FC<PopupProps> = ({
     <div
       className={`fixed inset-0 ${isOpen ? 'block' : 'hidden'} bg-gray-800 bg-opacity-50 z-50`}
     >
-      <div className='bg-white w-1/2 p-6 mx-auto mt-20 rounded-md shadow-md'>
+      <div className='bg-white sm:w-/5 md:w-3/5 lg:w-2/4 xl:w-3/5 p-6 mx-auto mt-20 rounded-md shadow-md'>
         <div className='flex justify-between items-center mb-4'>
           <h2 className='text-lg font-semibold'>
             Popup Title
