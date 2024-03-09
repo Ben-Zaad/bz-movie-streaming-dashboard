@@ -1,41 +1,22 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { useContext } from 'react';
 import { MoviesContext } from '../../customHooks/moviesContext/MoviesContext';
-import { CustomInput } from '../../components/input/CustomInput';
-import { InputError } from '../../components/errors/InputError';
 import { BackToTopButton } from '../../components/buttons/BackToTopButton';
 import { DashboardMovieItem } from './DashboardMovieItem';
 import { MovieItem } from './types';
 import Popup from '../../components/popups/Popup';
 import { PopupMovieItem } from './PopupMovieItem';
-
-import logo from '../../assets/images/logo192.png';
 import Header from '../../components/header/Header';
 import { SimpleLoader } from '../../components/loaders/SimpleLoader';
 
 export const MoviesDashboardPage = () => {
   const {
-    movies,
-    filterValue,
-    searchError,
     moviesIsLoading,
     selectedMovieId,
     selectedMovie,
-    setFilterValue,
-    getMovies,
-    setSearchError,
     selectMovie,
-    searchMovie,
+    searchMovies,
+    sortMoviesByReleased,
   } = useContext(MoviesContext);
-
-  const handleSearch = (e: any) => {
-    e.preventDefault();
-    setSearchError('');
-    getMovies();
-  };
 
   return (
     <div>
@@ -67,25 +48,27 @@ export const MoviesDashboardPage = () => {
         {moviesIsLoading ? (
           <SimpleLoader />
         ) : (
-          searchMovie().map((movie: MovieItem) => {
-            return (
-              <DashboardMovieItem
-                key={movie.id}
-                title={movie.title}
-                id={movie.id}
-                image={movie.image}
-                synopsis={movie.synopsis}
-                rating={movie.rating}
-                type={movie.type}
-                released={movie.released}
-                runtime={movie.runtime}
-                largeimage={movie.largeimage}
-                unogsdate={movie.unogsdate}
-                imdbid={movie.imdbid}
-                download={movie.download}
-              />
-            );
-          })
+          sortMoviesByReleased(searchMovies()).map(
+            (movie: MovieItem) => {
+              return (
+                <DashboardMovieItem
+                  key={movie.id}
+                  title={movie.title}
+                  id={movie.id}
+                  image={movie.image}
+                  synopsis={movie.synopsis}
+                  rating={movie.rating}
+                  type={movie.type}
+                  released={movie.released}
+                  runtime={movie.runtime}
+                  largeimage={movie.largeimage}
+                  unogsdate={movie.unogsdate}
+                  imdbid={movie.imdbid}
+                  download={movie.download}
+                />
+              );
+            }
+          )
         )}
       </div>
     </div>

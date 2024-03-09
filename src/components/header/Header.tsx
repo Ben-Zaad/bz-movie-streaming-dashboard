@@ -4,7 +4,7 @@ import { CustomInput } from '../input/CustomInput';
 import { MoviesContext } from '../../customHooks/moviesContext/MoviesContext';
 
 const Header: React.FC = () => {
-  const { filterValue, moviesIsLoading, setFilterValue } =
+  const { filterValue, setFilterValue } =
     useContext(MoviesContext);
 
   return (
@@ -18,6 +18,7 @@ const Header: React.FC = () => {
         <h1>BZ Movie Dashboard</h1>
         <div className='bg-slate-600 '>
           <CustomInput
+            placeholder='Type here to search'
             label='Search Movie By Name'
             value={filterValue}
             setValue={setFilterValue}

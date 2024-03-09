@@ -3,6 +3,7 @@ import { SimpleLoader } from '../loaders/SimpleLoader';
 type CustomInputProps = {
   label: string;
   value: string;
+  placeholder: string;
   setValue: (arg: string) => {};
   onClick?: (e: any) => void;
 };
@@ -21,6 +22,7 @@ export const CustomInput = (props: CustomInputProps) => {
             id='small-input'
             value={value}
             onChange={(e) => setValue(e.target.value)}
+            placeholder='Type here to search'
             className='block p-2 my-3  h-1/4 sm:w-1/4 text-gray-900 border border-gray-300
              rounded-lg bg-gray-50 text-s focus:ring-blue-500
             focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600

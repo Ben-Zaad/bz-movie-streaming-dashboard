@@ -16,6 +16,7 @@ interface MoviesProviderProps {
 
 interface MoviesContext {
   moviesIsLoading: Boolean;
+  expandIsLoading: Boolean;
   movies: MovieItem[];
   filterValue: string;
   searchError: string;
@@ -25,11 +26,15 @@ interface MoviesContext {
   setFilterValue: (arg: string) => any;
   setSearchError: (arg: string) => any;
   selectMovie: (arg: string) => any;
-  searchMovie: () => MovieItem[];
+  searchMovies: () => MovieItem[];
+  sortMoviesByReleased: (
+    movies: MovieItem[]
+  ) => MovieItem[];
 }
 
 const initialContext: MoviesContext = {
   moviesIsLoading: false,
+  expandIsLoading: false,
   movies: [],
   filterValue: '',
   searchError: '',
@@ -39,7 +44,10 @@ const initialContext: MoviesContext = {
   setFilterValue: (arg) => {},
   setSearchError: (arg) => {},
   selectMovie: (arg) => {},
-  searchMovie: () => {
+  searchMovies: () => {
+    return [];
+  },
+  sortMoviesByReleased: (movies) => {
     return [];
   },
 };
@@ -59,6 +67,8 @@ const MoviesProvider = ({
   const [selectedMovie, setSeletedMovie] = useState(null);
   const [moviesIsLoading, setmoviesIsLoading] =
     useState<boolean>(false);
+  const [expandIsLoading, setExpandIsLoading] =
+    useState<boolean>(false);
 
   const getMovies = async () => {
     setmoviesIsLoading(true);
@@ -73,30 +83,41 @@ const MoviesProvider = ({
   };
 
   const getMovieById = async (id: string) => {
-    setmoviesIsLoading(true);
-
+    setExpandIsLoading(true);
+    setSeletedMovie(null);
     const res = await apiGetMovieById(id).catch(
       function (error) {
         setSearchError(error.response.data.error);
       }
     );
     setSeletedMovie(res?.data[0]);
-    setmoviesIsLoading(false);
+    setExpandIsLoading(false);
   };
 
   const selectMovie = (selectedMovieId: string) => {
+    getMovieById(selectedMovieId);
     setSelectedMovieId(selectedMovieId);
     setQueryStringUrl('selectedMovieId', selectedMovieId);
-    getMovieById(selectedMovieId);
+    setExpandIsLoading(false);
   };
 
-  const searchMovie = () => {
+  const searchMovies = () => {
     return movies.filter((movie) => {
       return movie.title
         .toLowerCase()
         .includes(filterValue.toLowerCase());
     });
   };
+
+  const sortMoviesByReleased = (movies: MovieItem[]) => {
+    return movies.sort((movie1, movie2) => {
+      return (
+        Number(movie2.released) - Number(movie1.released)
+      );
+    });
+  };
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     getMovieById(selectedMovieId);
@@ -112,6 +133,7 @@ const MoviesProvider = ({
     <MoviesContext.Provider
       value={{
         moviesIsLoading,
+        expandIsLoading,
         movies,
         filterValue,
         searchError,
@@ -121,7 +143,8 @@ const MoviesProvider = ({
         setFilterValue,
         setSearchError,
         selectMovie,
-        searchMovie,
+        searchMovies,
+        sortMoviesByReleased,
       }}
     >
       {children}
