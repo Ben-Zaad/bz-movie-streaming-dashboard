@@ -25,6 +25,7 @@ interface MoviesContext {
   setFilterValue: (arg: string) => any;
   setSearchError: (arg: string) => any;
   selectMovie: (arg: string) => any;
+  searchMovie: () => MovieItem[];
 }
 
 const initialContext: MoviesContext = {
@@ -38,6 +39,9 @@ const initialContext: MoviesContext = {
   setFilterValue: (arg) => {},
   setSearchError: (arg) => {},
   selectMovie: (arg) => {},
+  searchMovie: () => {
+    return [];
+  },
 };
 
 export const MoviesContext =
@@ -76,7 +80,6 @@ const MoviesProvider = ({
         setSearchError(error.response.data.error);
       }
     );
-    console.log('FIND ME RES', res);
     setSeletedMovie(res?.data[0]);
     setmoviesIsLoading(false);
   };
@@ -85,6 +88,14 @@ const MoviesProvider = ({
     setSelectedMovieId(selectedMovieId);
     setQueryStringUrl('selectedMovieId', selectedMovieId);
     getMovieById(selectedMovieId);
+  };
+
+  const searchMovie = () => {
+    return movies.filter((movie) => {
+      return movie.title
+        .toLowerCase()
+        .includes(filterValue.toLowerCase());
+    });
   };
 
   useEffect(() => {
@@ -110,6 +121,7 @@ const MoviesProvider = ({
         setFilterValue,
         setSearchError,
         selectMovie,
+        searchMovie,
       }}
     >
       {children}

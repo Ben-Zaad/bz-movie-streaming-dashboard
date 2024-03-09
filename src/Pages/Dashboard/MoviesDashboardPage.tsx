@@ -14,6 +14,7 @@ import { PopupMovieItem } from './PopupMovieItem';
 
 import logo from '../../assets/images/logo192.png';
 import Header from '../../components/header/Header';
+import { SimpleLoader } from '../../components/loaders/SimpleLoader';
 
 export const MoviesDashboardPage = () => {
   const {
@@ -27,6 +28,7 @@ export const MoviesDashboardPage = () => {
     getMovies,
     setSearchError,
     selectMovie,
+    searchMovie,
   } = useContext(MoviesContext);
 
   const handleSearch = (e: any) => {
@@ -62,25 +64,29 @@ export const MoviesDashboardPage = () => {
       )}
       <BackToTopButton />
       <div className='flex flex-wrap justify-center w-5/5'>
-        {movies.map((movie: MovieItem) => {
-          return (
-            <DashboardMovieItem
-              key={movie.id}
-              title={movie.title}
-              id={movie.id}
-              image={movie.image}
-              synopsis={movie.synopsis}
-              rating={movie.rating}
-              type={movie.type}
-              released={movie.released}
-              runtime={movie.runtime}
-              largeimage={movie.largeimage}
-              unogsdate={movie.unogsdate}
-              imdbid={movie.imdbid}
-              download={movie.download}
-            />
-          );
-        })}
+        {moviesIsLoading ? (
+          <SimpleLoader />
+        ) : (
+          searchMovie().map((movie: MovieItem) => {
+            return (
+              <DashboardMovieItem
+                key={movie.id}
+                title={movie.title}
+                id={movie.id}
+                image={movie.image}
+                synopsis={movie.synopsis}
+                rating={movie.rating}
+                type={movie.type}
+                released={movie.released}
+                runtime={movie.runtime}
+                largeimage={movie.largeimage}
+                unogsdate={movie.unogsdate}
+                imdbid={movie.imdbid}
+                download={movie.download}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );

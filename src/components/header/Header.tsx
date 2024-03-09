@@ -8,7 +8,7 @@ const Header: React.FC = () => {
     useContext(MoviesContext);
 
   return (
-    <div className='flex flex-row bg-slate-200 h-30 sticky top-0 z-10 sm:w-5/6 md:w-3/5 lg:w-2/4 xl:w-full'>
+    <div className='flex flex-row bg-slate-200 h-30 sticky top-0 z-10 sm:w-screen'>
       <img
         className='w-20 h-20 rounded-full p-2'
         src={logo}
@@ -21,8 +21,6 @@ const Header: React.FC = () => {
             label='Search Movie By Name'
             value={filterValue}
             setValue={setFilterValue}
-            isLoading={moviesIsLoading}
-            onClick={() => {}}
           />
         </div>
       </div>
