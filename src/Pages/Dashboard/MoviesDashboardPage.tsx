@@ -15,7 +15,7 @@ export const MoviesDashboardPage = () => {
     selectedMovie,
     selectMovie,
     searchMovies,
-    sortMoviesByReleased,
+    sortMovies,
   } = useContext(MoviesContext);
 
   return (
@@ -48,7 +48,7 @@ export const MoviesDashboardPage = () => {
         {moviesIsLoading ? (
           <SimpleLoader />
         ) : (
-          sortMoviesByReleased(searchMovies()).map(
+          sortMovies(searchMovies()).map(
             (movie: MovieItem) => {
               return (
                 <DashboardMovieItem

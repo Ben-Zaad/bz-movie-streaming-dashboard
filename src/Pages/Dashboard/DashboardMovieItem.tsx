@@ -19,7 +19,7 @@ export const DashboardMovieItem = (
       <img
         src={image}
         alt={title}
-        className='w-full h-auto'
+        className='w-full h-72 object-cover'
       />
       <div className='p-4 flex flex-col min-h-36'>
         <h2 className='text-lg font-semibold mb-2 '>

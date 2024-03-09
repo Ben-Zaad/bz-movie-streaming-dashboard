@@ -2,10 +2,15 @@ import React, { useContext } from 'react';
 import logo from '../../assets/images/logo192.png';
 import { CustomInput } from '../input/CustomInput';
 import { MoviesContext } from '../../customHooks/moviesContext/MoviesContext';
+import Toggle from '../buttons/Toggle';
 
 const Header: React.FC = () => {
-  const { filterValue, setFilterValue } =
-    useContext(MoviesContext);
+  const {
+    filterValue,
+    setFilterValue,
+    setReleasedToggle,
+    setRatingToggle,
+  } = useContext(MoviesContext);
 
   return (
     <div className='flex flex-row bg-slate-200 h-30 sticky top-0 z-10 sm:w-screen'>
@@ -16,13 +21,23 @@ const Header: React.FC = () => {
       />
       <div className='flex flex-col justify-end'>
         <h1>BZ Movie Dashboard</h1>
-        <div className='bg-slate-600 '>
+        <div className='bg-slate-200 flex flex-col p-4'>
           <CustomInput
             placeholder='Type here to search'
             label='Search Movie By Name'
             value={filterValue}
             setValue={setFilterValue}
           />
+          <div className='flex flex-row'>
+            <Toggle
+              title={'Filter By Release Date'}
+              onChange={setReleasedToggle}
+            />
+            <Toggle
+              title={'Filter By Rating'}
+              onChange={setRatingToggle}
+            />
+          </div>
         </div>
       </div>
     </div>

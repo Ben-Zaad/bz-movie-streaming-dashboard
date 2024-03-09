@@ -1,5 +1,10 @@
-import { createContext, useEffect, useState } from 'react';
-import { isValidUrl } from '../../utils/string-utils';
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from 'react';
 import {
   getQueryParams,
   setQueryStringUrl,
@@ -27,9 +32,9 @@ interface MoviesContext {
   setSearchError: (arg: string) => any;
   selectMovie: (arg: string) => any;
   searchMovies: () => MovieItem[];
-  sortMoviesByReleased: (
-    movies: MovieItem[]
-  ) => MovieItem[];
+  setReleasedToggle: Dispatch<SetStateAction<boolean>>;
+  setRatingToggle: Dispatch<SetStateAction<boolean>>;
+  sortMovies: (movies: MovieItem[]) => MovieItem[];
 }
 
 const initialContext: MoviesContext = {
@@ -47,7 +52,9 @@ const initialContext: MoviesContext = {
   searchMovies: () => {
     return [];
   },
-  sortMoviesByReleased: (movies) => {
+  setReleasedToggle: () => {},
+  setRatingToggle: () => {},
+  sortMovies: (movies) => {
     return [];
   },
 };
@@ -68,6 +75,11 @@ const MoviesProvider = ({
   const [moviesIsLoading, setmoviesIsLoading] =
     useState<boolean>(false);
   const [expandIsLoading, setExpandIsLoading] =
+    useState<boolean>(false);
+
+  const [releasedToggle, setReleasedToggle] =
+    useState<boolean>(false);
+  const [ratingToggle, setRatingToggle] =
     useState<boolean>(false);
 
   const getMovies = async () => {
@@ -109,12 +121,23 @@ const MoviesProvider = ({
     });
   };
 
-  const sortMoviesByReleased = (movies: MovieItem[]) => {
-    return movies.sort((movie1, movie2) => {
-      return (
-        Number(movie2.released) - Number(movie1.released)
-      );
-    });
+  const sortMovies = (movies: MovieItem[]) => {
+    let sortedArray = movies;
+    if (releasedToggle) {
+      sortedArray = sortedArray.sort((movie1, movie2) => {
+        return (
+          Number(movie2.released) - Number(movie1.released)
+        );
+      });
+    }
+    if (ratingToggle) {
+      sortedArray = sortedArray.sort((movie1, movie2) => {
+        return (
+          Number(movie2.rating) - Number(movie1.rating)
+        );
+      });
+    }
+    return sortedArray;
   };
 
   useEffect(() => {}, []);
@@ -144,7 +167,9 @@ const MoviesProvider = ({
         setSearchError,
         selectMovie,
         searchMovies,
-        sortMoviesByReleased,
+        setReleasedToggle,
+        setRatingToggle,
+        sortMovies,
       }}
     >
       {children}
