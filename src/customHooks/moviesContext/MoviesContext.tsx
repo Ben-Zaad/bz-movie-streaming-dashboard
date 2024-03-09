@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 import { isValidUrl } from '../../utils/string-utils';
 import { readQueryParams, setQueryStringUrl } from '../../utils/url-utils';
-import { FeedElement } from '../../Pages/Dashboard/types';
 import { apiGetAllMovies } from '../../api/moviesService';
+import { MovieItem } from '../../Pages/Dashboard/types';
 
 
 interface MoviesProviderProps {
@@ -11,7 +11,7 @@ interface MoviesProviderProps {
 
 interface MoviesContext {
   isLoading: Boolean;
-  movies: FeedElement[];
+  movies: MovieItem[];
   filterValue: string;
   searchError: string;
   getMovies: () => any;
@@ -32,7 +32,7 @@ const initialContext: MoviesContext = {
 export const MoviesContext = createContext<MoviesContext>(initialContext);
 
 const MoviesProvider = ({ children }: MoviesProviderProps) => {
-  const [movies, setmovies] = useState<FeedElement[]>([]);
+  const [movies, setmovies] = useState<MovieItem[]>([]);
   const [filterValue, setFilterValue] = useState('');
   const [searchError, setSearchError] = useState('');
   const [selectedMovieId, setSelectedMovieId] = useState('');

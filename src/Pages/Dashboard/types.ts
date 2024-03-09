@@ -1,11 +1,14 @@
-export type FeedElement = {
+export type MovieItem = {
+  id: string;
   title: string;
-  link: string;
-  isoDate: string;
-  creator: string;
-  content?: TrustedHTML;
-  content2?: TrustedHTML;
-  thumbnailUrl?: string;
-  contentSnippet: any;
-  image: { $: { height: string; width: string; url: string } };
+  image: string;
+  synopsis: string;
+  rating: string;
+  type: string;
+  released: string;
+  runtime: string;
+  largeimage: string;
+  unogsdate: string;
+  imdbid: string;
+  download: string;
 };

@@ -1,57 +1,57 @@
 import { timePassedFromNow } from '../../utils/date-utils';
+import { MovieItem } from './types';
 
-type FeedProps = {
-  title: string;
-  link: string;
-  date: string;
-  contentSnippet: any;
-  creator: string;
-  content?: TrustedHTML;
-  content2?: TrustedHTML;
-  image?: string;
-};
-
-export const DashboardMovieItem = (feedProps: FeedProps) => {
+export const DashboardMovieItem = (
+  feedProps: MovieItem
+) => {
+  const {
+    title,
+    type,
+    image,
+    largeimage,
+    synopsis,
+    rating,
+    released,
+    runtime,
+    unogsdate,
+    imdbid,
+    download,
+  } = feedProps;
   return (
-    <div className='bg-slate-100 flex justify-center overflow-x-hidden border-b-2'>
-      <div className='p-8 bg-slate-100 max-w-xl min-w-xl '>
-        <a href={feedProps.link} rel='noreferrer' target='_blank'>
-          <h3 className='text-xl font-bold underline'>{feedProps.title}</h3>
-        </a>
-        <div className='Entry-root'>
-          <div className='Entry-box-left'></div>
-          <div className='Entry-box-right'>
-            <blockquote className='text-xl italic font-semibold text-gray-900 dark:text-white'>
-              <p className='Entry-author opacity-70'>{feedProps.creator}</p>
-            </blockquote>
-            <p className='Entry-date italic opacity-70'>
-              {timePassedFromNow(new Date(feedProps.date))}
-            </p>
-          </div>
+    <div
+      // to={`/movies/${id}`}
+      className='block bg-white border border-gray-300 rounded-md overflow-hidden shadow-md w-64 m-4 hover:shadow-lg'
+    >
+      <img
+        src={image}
+        alt={title}
+        className='w-full h-auto'
+      />
+      <div className='p-4'>
+        <h2 className='text-lg font-semibold mb-2'>
+          {title}
+        </h2>
+        <p className='text-gray-600 mb-2'>{synopsis}</p>
+        <div className='text-gray-700 mb-2'>
+          <p>
+            <strong>Rating:</strong> {rating}
+          </p>
+          <p>
+            <strong>Type:</strong> {type}
+          </p>
+          <p>
+            <strong>Released:</strong> {released}
+          </p>
+          <p>
+            <strong>Runtime:</strong> {runtime}
+          </p>
+          <p>
+            <strong>IMDb ID:</strong> {imdbid}
+          </p>
         </div>
-
-        {feedProps.content2 && (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: feedProps.content2,
-            }}
-          ></div>
-        )}
-
-        {feedProps.content ? (
-          <>
-            <div
-              dangerouslySetInnerHTML={{
-                __html: feedProps.content,
-              }}
-            ></div>
-            <img src={feedProps.image} />
-          </>
-        ) : (
-          <div className='flex justify-center'>
-            <p>{feedProps.contentSnippet}</p>
-          </div>
-        )}
+        <p className='text-gray-500 text-sm'>
+          Released on: {released}
+        </p>
       </div>
     </div>
   );

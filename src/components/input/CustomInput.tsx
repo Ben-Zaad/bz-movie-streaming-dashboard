@@ -11,7 +11,6 @@ type CustomInputProps = {
 export const CustomInput = (props: CustomInputProps) => {
   const { label, value, setValue, isLoading, handleSearch } = props;
   return (
-    <form onSubmit={(e) => handleSearch(e)}>
       <div className='flex items-center justify-center p-8 bg-slate-200'>
         <label
           htmlFor='small-input'
@@ -32,6 +31,5 @@ export const CustomInput = (props: CustomInputProps) => {
           <button onClick={(e) => handleSearch(e)}>🔍</button>
         )}
       </div>
-    </form>
   );
 };
