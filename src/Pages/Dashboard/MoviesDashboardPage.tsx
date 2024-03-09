@@ -19,7 +19,7 @@ export const MoviesDashboardPage = () => {
   } = useContext(MoviesContext);
 
   return (
-    <div>
+    <div className='overflow-x-hide'>
       <Header />
       {selectedMovieId && selectedMovie?.id && (
         <Popup
