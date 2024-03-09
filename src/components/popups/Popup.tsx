@@ -19,7 +19,7 @@ const Popup: React.FC<PopupProps> = ({
 
   return (
     <div
-      className={`fixed inset-0 ${isOpen ? 'block' : 'hidden'} bg-gray-800 bg-opacity-50 z-50`}
+      className={`fixed inset-0 ${isOpen ? 'block' : 'hidden'} bg-gray-800 bg-opacity-50 z-50 overflow-y-scroll`}
     >
       <div className='bg-white sm:w-5/6 md:w-3/5 lg:w-2/4 xl:w-3/5 p-6 mx-auto mt-20 rounded-md shadow-md sm:mt-20 sm:rounded-none sm:rounded-b-md'>
         <div className='content'>{children}</div>

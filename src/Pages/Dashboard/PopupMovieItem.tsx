@@ -32,7 +32,7 @@ export const PopupMovieItem: React.FC<MovieItem> = (
         <img
           src={largeimage}
           alt={title}
-          className='w-full object-cover border border-gray-300 p-2'
+          className='w-screen h-1/6 sm:h-full object-cover border border-gray-300 p-2'
         />
       </div>
       <div className='flex flex-col w-full p-4 sm:w-1/2'>
