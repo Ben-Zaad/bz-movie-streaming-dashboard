@@ -115,9 +115,13 @@ const MoviesProvider = ({
 
   const searchMovies = () => {
     return movies.filter((movie) => {
-      return movie.title
-        .toLowerCase()
-        .includes(filterValue.toLowerCase());
+      return (
+        movie.title
+          .toLowerCase()
+          .includes(filterValue.toLowerCase()) ||
+        movie.rating === filterValue ||
+        movie.released.includes(filterValue)
+      );
     });
   };
 

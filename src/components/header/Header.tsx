@@ -24,17 +24,17 @@ const Header: React.FC = () => {
         <div className='bg-slate-200 flex flex-col p-4'>
           <CustomInput
             placeholder='Type here to search'
-            label='Search Movie By Name'
+            label='Search Movie By Name, Release Year or IMDB Rating :'
             value={filterValue}
             setValue={setFilterValue}
           />
-          <div className='flex flex-row'>
+          <div className='flex flex-row w-5/5'>
             <Toggle
-              title={'Filter By Release Date'}
+              title={'Sort By Release Date'}
               onChange={setReleasedToggle}
             />
             <Toggle
-              title={'Filter By Rating'}
+              title={'Sort By Rating'}
               onChange={setRatingToggle}
             />
           </div>

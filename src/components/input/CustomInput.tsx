@@ -5,11 +5,10 @@ type CustomInputProps = {
   value: string;
   placeholder: string;
   setValue: (arg: string) => {};
-  onClick?: (e: any) => void;
 };
 
 export const CustomInput = (props: CustomInputProps) => {
-  const { label, value, setValue, onClick } = props;
+  const { label, value, setValue } = props;
   return (
     <div className='justify-around bg-slate-200 sm:w-screen'>
       <div className=''>
@@ -28,9 +27,6 @@ export const CustomInput = (props: CustomInputProps) => {
             focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600
              dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
           />
-          {onClick && (
-            <button onClick={(e) => onClick(e)}>🔍</button>
-          )}
         </div>
       </div>
     </div>
