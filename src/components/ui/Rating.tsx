@@ -8,7 +8,7 @@ export const Rating: React.FC<RatingProps> = ({
   rating,
 }) => {
   return (
-    <div className='font-medium text-xl'>
+    <div className='flex items-center h-10'>
       {rating ? '⭐' + rating : ''}
     </div>
   );

@@ -32,11 +32,11 @@ export const DashboardMovieItem = (
         alt={title}
         className='w-full h-auto cursor-pointer'
       />
-      <div className='p-4 flex flex-col'>
-        <h2 className='text-lg font-semibold mb-2'>
+      <div className='p-4 flex flex-col min-h-36'>
+        <h2 className='text-lg font-semibold mb-2 '>
           {title} ({released})
         </h2>
-        <div className='flex items-end'>
+        <div className='flex-grow flex items-end'>
           <Rating rating={rating} />
         </div>
       </div>
