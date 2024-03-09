@@ -1,55 +1,46 @@
+import React, { useContext } from 'react';
 import DOMPurify from 'dompurify';
-
-import { timePassedFromNow } from '../../utils/date-utils';
 import { MovieItem } from './types';
-import { useContext } from 'react';
 import { MoviesContext } from '../../customHooks/moviesContext/MoviesContext';
 
-/*
-DOMPurify sanitizes HTML and prevents XSS attacks.
-You can feed DOMPurify with string full of dirty HTML
-and it will return a string with clean HTML
-*/
 const sanitizeHTML = (html: string) => {
   return DOMPurify.sanitize(html);
 };
 
-export const DashboardMovieItem = (
-  feedProps: MovieItem
+export const PopupMovieItem: React.FC<MovieItem> = (
+  feedProps
 ) => {
   const {
     id,
     title,
     type,
-    image,
     largeimage,
     synopsis,
     rating,
-    released,
     runtime,
-    unogsdate,
-    imdbid,
-    download,
   } = feedProps;
+
   const sanitizedSynopsis = sanitizeHTML(synopsis);
   const { selectMovie } = useContext(MoviesContext);
 
   return (
     <div
       onClick={() => selectMovie(id)}
-      className='block bg-white border border-gray-300 rounded-md overflow-hidden shadow-md w-64 m-4 hover:shadow-lg'
+      className='flex bg-white border border-gray-300 rounded-md overflow-hidden shadow-md w-5/6 m-4 hover:shadow-lg'
     >
-      <img
-        src={image}
-        alt={title}
-        className='w-full h-auto cursor-pointer'
-      />
-      <div className='p-4'>
+      <div className='flex-shrink-0 w-1/2 overflow-hidden'>
+        <img
+          src={largeimage}
+          alt={title}
+          className='w-full h-full object-cover'
+        />
+      </div>
+      <div className='flex flex-col w-1/2 p-4'>
         <h2 className='text-lg font-semibold mb-2'>
           {title}
         </h2>
         <div
-          className='text-gray-600 mb-2'
+          className='text-gray-600 mb-2 overflow-auto'
           dangerouslySetInnerHTML={{
             __html: sanitizedSynopsis,
           }}
@@ -61,10 +52,10 @@ export const DashboardMovieItem = (
           <p>
             <strong>Type:</strong> {type}
           </p>
-          <p>
+          {/* <p>
             <strong>Released:</strong>{' '}
-            {/* <ReleaseDate date={released} /> */}
-          </p>
+            {released ? <ReleaseDate date={released} /> : 'N/A'}
+          </p> */}
           <p>
             <strong>Runtime:</strong> {runtime}
           </p>
