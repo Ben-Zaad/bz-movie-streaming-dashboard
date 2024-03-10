@@ -23,6 +23,8 @@ interface MoviesProviderProps {
 interface MoviesContext {
   moviesIsLoading: Boolean;
   expandIsLoading: Boolean;
+  releasedToggle: Boolean;
+  ratingToggle: Boolean;
   movies: MovieItem[];
   filterValue: string;
   searchError: string;
@@ -33,15 +35,17 @@ interface MoviesContext {
   setFilterValue: (arg: string) => any;
   setSearchError: (arg: string) => any;
   selectMovie: (arg: string) => any;
-  searchMovies: () => MovieItem[];
+  // searchMovies: () => MovieItem[];
   setReleasedToggle: Dispatch<SetStateAction<boolean>>;
   setRatingToggle: Dispatch<SetStateAction<boolean>>;
-  sortMovies: (movies: MovieItem[]) => MovieItem[];
+  // sortMovies: (movies: MovieItem[]) => MovieItem[];
 }
 
 const initialContext: MoviesContext = {
   moviesIsLoading: false,
   expandIsLoading: false,
+  releasedToggle: false,
+  ratingToggle: false,
   movies: [],
   filterValue: '',
   searchError: '',
@@ -52,14 +56,14 @@ const initialContext: MoviesContext = {
   setFilterValue: (arg) => {},
   setSearchError: (arg) => {},
   selectMovie: (arg) => {},
-  searchMovies: () => {
-    return [];
-  },
+  // searchMovies: () => {
+  //   return [];
+  // },
   setReleasedToggle: () => {},
   setRatingToggle: () => {},
-  sortMovies: (movies) => {
-    return [];
-  },
+  // sortMovies: (movies) => {
+  //   return [];
+  // },
 };
 
 export const MoviesContext =
@@ -121,43 +125,9 @@ const MoviesProvider = ({
     setExpandIsLoading(false);
   };
 
-  const searchMovies = () => {
-    setSearchError('');
-    const filteredMovies = movies.filter((movie) => {
-      return (
-        movie.title
-          .toLowerCase()
-          .includes(filterValue.toLowerCase()) ||
-        movie.rating === filterValue ||
-        movie.released.includes(filterValue)
-      );
-    });
-    if (filteredMovies.length === 0 && filterValue) {
-      setSearchError(
-        'Sorry, No Item matches this inpus, try typing something else'
-      );
-    }
-    return filteredMovies;
-  };
-
-  const sortMovies = (movies: MovieItem[]) => {
-    let sortedArray = movies;
-    if (releasedToggle) {
-      sortedArray = sortArrayByCategory(
-        sortedArray,
-        'released'
-      );
-    }
-    if (ratingToggle) {
-      sortedArray = sortArrayByCategory(
-        sortedArray,
-        'rating'
-      );
-    }
-    return sortedArray;
-  };
-
-  useEffect(() => {}, []);
+  // useEffect(() => {
+  //   searchMovies()
+  // }, [filterValue]);
 
   useEffect(() => {
     selectedMovieId && getMovieById(selectedMovieId);
@@ -180,14 +150,16 @@ const MoviesProvider = ({
         apiError,
         selectedMovieId,
         selectedMovie,
+        ratingToggle,
+        releasedToggle,
         getMovies,
         setFilterValue,
         setSearchError,
         selectMovie,
-        searchMovies,
+        // searchMovies,
         setReleasedToggle,
         setRatingToggle,
-        sortMovies,
+        // sortMovies,
       }}
     >
       {children}

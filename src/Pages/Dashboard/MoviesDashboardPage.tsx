@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MoviesContext } from '../../customHooks/moviesContext/MoviesContext';
 import { BackToTopButton } from '../../components/buttons/BackToTopButton';
 import { DashboardMovieItem } from './items/DashboardMovieItem';
@@ -11,18 +11,51 @@ import Searchbar from './searchbar/Searchbar';
 import PageTitle from '../../components/text/PageTitle';
 import Footer from './footer/Footer';
 import { InputError } from '../../components/errors/InputError';
+import {
+  searchMovies,
+  sortMovies,
+} from '../../utils/movies-utils';
 
 export const MoviesDashboardPage = () => {
   const {
+    movies,
+    filterValue,
     moviesIsLoading,
     expandIsLoading,
     selectedMovieId,
     selectedMovie,
+    searchError,
     apiError,
+    releasedToggle,
+    ratingToggle,
     selectMovie,
-    searchMovies,
-    sortMovies,
+    // searchMovies,
+    // sortMovies,
+    setSearchError,
   } = useContext(MoviesContext);
+
+  const [filteredMovies, setFiltedMovies] =
+    useState(movies);
+
+  useEffect(() => {
+    if (filterValue.length > 0) {
+      setFiltedMovies(
+        sortMovies(
+          searchMovies(movies, filterValue, setSearchError),
+          releasedToggle,
+          ratingToggle
+        )
+      );
+    } else {
+      setFiltedMovies(
+        sortMovies(
+          searchMovies(movies, '', setSearchError),
+          releasedToggle,
+          ratingToggle
+        )
+      );
+    }
+  }, [filterValue]);
 
   return (
     <div>
@@ -48,17 +81,19 @@ export const MoviesDashboardPage = () => {
           {moviesIsLoading ? (
             <SimpleLoader />
           ) : (
-            sortMovies(searchMovies()).map(
-              (movie: MovieItem) => {
-                return (
-                  <DashboardMovieItem
-                    key={movie.id}
-                    item={movie}
-                    callback={selectMovie}
-                  />
-                );
-              }
-            )
+            (filteredMovies.length > 0 ||
+            searchError.length > 0
+              ? filteredMovies
+              : movies
+            ).map((movie: MovieItem) => {
+              return (
+                <DashboardMovieItem
+                  key={movie.id}
+                  item={movie}
+                  callback={selectMovie}
+                />
+              );
+            })
           )}
         </div>
       </div>
