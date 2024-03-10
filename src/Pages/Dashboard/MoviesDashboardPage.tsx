@@ -10,7 +10,7 @@ import { SimpleLoader } from '../../components/loaders/SimpleLoader';
 import Searchbar from './searchbar/Searchbar';
 import PageTitle from '../../components/text/PageTitle';
 import Footer from './footer/Footer';
-import { InputError } from '../../components/errors/InputError';
+import { ErrorBar } from '../../components/errors/ErrorBar';
 import {
   searchMovies,
   sortMovies,
@@ -50,7 +50,7 @@ export const MoviesDashboardPage = () => {
   return (
     <div>
       <Header title='BZ Movie Dashboard' />
-      <InputError errorMessage={apiError} />
+      {apiError && <ErrorBar errorMessage={apiError} />}
       <div>
         <BackToTopButton />
         <PageTitle title='Explore Your Next Movies And TV Shows'></PageTitle>

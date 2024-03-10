@@ -1,10 +1,10 @@
 // Sidebar.tsx
 import React, { useContext } from 'react';
-import { CustomInput } from '../../../components/input/CustomInput';
-import Toggle from '../../../components/buttons/Toggle';
-import { MoviesContext } from '../../../customHooks/moviesContext/MoviesContext';
-import Collapse from '../../../components/collapse/Collapse';
-import { ErrorBar } from '../../../components/errors/ErrorBar';
+import { CustomInput } from '../../components/input/CustomInput';
+import Toggle from '../../components/buttons/Toggle';
+import { MoviesContext } from '../../customHooks/moviesContext/MoviesContext';
+import Collapse from '../../components/collapse/Collapse';
+import { ErrorBar } from '../../components/errors/ErrorBar';
 
 const Searchbar: React.FC = () => {
   const {
@@ -20,9 +20,8 @@ const Searchbar: React.FC = () => {
         openTitle='Show Search Options'
         closeTitle='Hide Search Options'
       >
-        {searchError && (
-          <ErrorBar errorMessage={searchError} />
-        )}
+        <ErrorBar errorMessage={searchError} />
+
         <div className='flex flex-col sm:flex-row p-4'>
           <div className='w-3/12'>
             <CustomInput
