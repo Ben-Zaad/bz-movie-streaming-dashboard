@@ -4,6 +4,7 @@ import { MoviesContext } from '../../../customHooks/moviesContext/MoviesContext'
 import { SimpleLoader } from '../../../components/loaders/SimpleLoader';
 import { sanitizeHTML } from '../../../utils/html-utils';
 import { Rating } from '../../../components/ui/Rating';
+import { formatTimeDuration } from '../../../utils/string-utils';
 
 type PopupMovieItemProps = {
   item: MovieItem;
@@ -48,12 +49,14 @@ export const PopupMovieItem: React.FC<
               }}
             />
             <div className='text-gray-700 mb-2'>
-              <Rating rating={rating} maxRating='10' />
+              <div className=''>
+                <div className='text-l'>
+                  {formatTimeDuration(runtime)}
+                </div>
+                <Rating rating={rating} maxRating='10' />
+              </div>
               <p>
                 <strong>Type:</strong> {type}
-              </p>
-              <p>
-                <strong>Runtime:</strong> {runtime}
               </p>
             </div>
           </div>

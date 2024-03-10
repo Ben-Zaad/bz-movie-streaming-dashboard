@@ -12,7 +12,7 @@ export const Rating: React.FC<RatingProps> = ({
   return (
     <div className='flex items-center h-10 text-2xl	'>
       {rating ? '⭐' + rating : ''}
-      {maxRating && '/' + maxRating}
+      {rating && maxRating && '/' + maxRating}
     </div>
   );
 };
