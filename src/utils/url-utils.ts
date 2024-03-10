@@ -18,20 +18,21 @@ export const getQueryParams = (urlParam: string) => {
 
 export const setQueryStringUrl = (
   paramName: string,
-  paramValue: string
+  paramValue: string | null
 ) => {
   const params: any = {
-    [`${paramName}`]: paramValue || undefined,
+    [paramName]: paramValue || null,
   };
 
-  const queryParams = qs.stringify(params);
+  const queryParams = qs.stringify(params, {
+    skipNulls: true,
+  });
 
-  if (
-    `${window.location.origin}/?${queryParams}` !==
-    window.location.href
-  ) {
+  try {
     let currentUrl = new URL(window.location.href);
     currentUrl.searchParams.set(paramName, queryParams);
     window.history.replaceState({}, '', currentUrl.href);
+  } catch (error) {
+    console.error(error);
   }
 };
