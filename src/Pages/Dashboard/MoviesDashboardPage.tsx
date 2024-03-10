@@ -10,6 +10,7 @@ import { SimpleLoader } from '../../components/loaders/SimpleLoader';
 import Searchbar from './searchbar/Searchbar';
 import PageTitle from '../../components/text/PageTitle';
 import Footer from './footer/Footer';
+import { InputError } from '../../components/errors/InputError';
 
 export const MoviesDashboardPage = () => {
   const {
@@ -17,6 +18,7 @@ export const MoviesDashboardPage = () => {
     expandIsLoading,
     selectedMovieId,
     selectedMovie,
+    apiError,
     selectMovie,
     searchMovies,
     sortMovies,
@@ -25,6 +27,7 @@ export const MoviesDashboardPage = () => {
   return (
     <div>
       <Header title='BZ Movie Dashboard' />
+      <InputError errorMessage={apiError} />
       <div>
         <BackToTopButton />
         <PageTitle title='Explore Your Next Movies And TV Shows'></PageTitle>
@@ -41,7 +44,7 @@ export const MoviesDashboardPage = () => {
             />
           </Popup>
         )}
-        <div className='flex flex-wrap justify-center w-5/5 xl:min-h-80	'>
+        <div className='flex flex-wrap justify-center w-5/5 sm:min-h-64 xl:min-h-72'>
           {moviesIsLoading ? (
             <SimpleLoader />
           ) : (

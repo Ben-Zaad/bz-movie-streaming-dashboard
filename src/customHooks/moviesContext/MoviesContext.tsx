@@ -14,6 +14,7 @@ import {
   apiGetMovieById,
 } from '../../api/moviesService';
 import { MovieItem } from '../../types/types';
+import { sortArrayByCategory } from '../../utils/array-utils';
 
 interface MoviesProviderProps {
   children: React.ReactNode;
@@ -25,6 +26,7 @@ interface MoviesContext {
   movies: MovieItem[];
   filterValue: string;
   searchError: string;
+  apiError: string;
   selectedMovieId: string;
   selectedMovie: MovieItem | null;
   getMovies: () => any;
@@ -43,6 +45,7 @@ const initialContext: MoviesContext = {
   movies: [],
   filterValue: '',
   searchError: '',
+  apiError: '',
   selectedMovieId: '',
   selectedMovie: null,
   getMovies: () => {},
@@ -68,6 +71,7 @@ const MoviesProvider = ({
   const [movies, setMovies] = useState<MovieItem[]>([]);
   const [filterValue, setFilterValue] = useState('');
   const [searchError, setSearchError] = useState('');
+  const [apiError, setApiError] = useState('');
   const [selectedMovieId, setSelectedMovieId] = useState(
     getQueryParams('selectedMovieId')
   );
@@ -84,26 +88,30 @@ const MoviesProvider = ({
 
   const getMovies = async () => {
     setmoviesIsLoading(true);
+    setApiError('');
 
     const res = await apiGetAllMovies().catch(
       function (error) {
-        setSearchError(error.response.data.error);
+        setApiError(error?.message);
       }
     );
-    setMovies(res?.data);
+    res?.data && setMovies(res?.data);
     setmoviesIsLoading(false);
   };
 
   const getMovieById = async (id: string) => {
-    setExpandIsLoading(true);
-    setSeletedMovie(null);
-    const res = await apiGetMovieById(id).catch(
-      function (error) {
-        setSearchError(error.response.data.error);
-      }
-    );
-    setSeletedMovie(res?.data[0]);
-    setExpandIsLoading(false);
+    if (id) {
+      setExpandIsLoading(true);
+      setApiError('');
+      setSeletedMovie(null);
+      const res = await apiGetMovieById(id).catch(
+        function (error) {
+          setApiError(error.response.data.error);
+        }
+      );
+      res?.data && setSeletedMovie(res?.data[0]);
+      setExpandIsLoading(false);
+    }
   };
 
   const selectMovie = (selectedMovieId: string) => {
@@ -124,7 +132,7 @@ const MoviesProvider = ({
         movie.released.includes(filterValue)
       );
     });
-    if (filteredMovies.length === 0) {
+    if (filteredMovies.length === 0 && filterValue) {
       setSearchError(
         'Sorry, No Item matches this inpus, try typing something else'
       );
@@ -135,18 +143,16 @@ const MoviesProvider = ({
   const sortMovies = (movies: MovieItem[]) => {
     let sortedArray = movies;
     if (releasedToggle) {
-      sortedArray = sortedArray.sort((movie1, movie2) => {
-        return (
-          Number(movie2.released) - Number(movie1.released)
-        );
-      });
+      sortedArray = sortArrayByCategory(
+        sortedArray,
+        'released'
+      );
     }
     if (ratingToggle) {
-      sortedArray = sortedArray.sort((movie1, movie2) => {
-        return (
-          Number(movie2.rating) - Number(movie1.rating)
-        );
-      });
+      sortedArray = sortArrayByCategory(
+        sortedArray,
+        'rating'
+      );
     }
     return sortedArray;
   };
@@ -154,7 +160,6 @@ const MoviesProvider = ({
   useEffect(() => {}, []);
 
   useEffect(() => {
-    console.log('FIND ME', selectedMovieId);
     selectedMovieId && getMovieById(selectedMovieId);
     // eslint-disable-next-line
   }, []);
@@ -172,6 +177,7 @@ const MoviesProvider = ({
         movies,
         filterValue,
         searchError,
+        apiError,
         selectedMovieId,
         selectedMovie,
         getMovies,

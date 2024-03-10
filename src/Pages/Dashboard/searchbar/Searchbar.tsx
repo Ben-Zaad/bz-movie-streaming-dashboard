@@ -20,8 +20,7 @@ const Searchbar: React.FC = () => {
         openTitle='Show Search Options'
         closeTitle='Hide Search Options'
       >
-        <InputError searchError={searchError} />
-
+        <InputError errorMessage={searchError} />
         <div className='flex flex-col sm:flex-row p-4'>
           <div className='w-3/12'>
             <CustomInput
