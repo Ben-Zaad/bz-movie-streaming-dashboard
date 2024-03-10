@@ -14,7 +14,6 @@ import {
   apiGetMovieById,
 } from '../../api/moviesService';
 import { MovieItem } from '../../types/types';
-import { sortArrayByCategory } from '../../utils/array-utils';
 
 interface MoviesProviderProps {
   children: React.ReactNode;
@@ -31,14 +30,11 @@ interface MoviesContext {
   apiError: string;
   selectedMovieId: string;
   selectedMovie: MovieItem | null;
-  getMovies: () => any;
   setFilterValue: (arg: string) => any;
   setSearchError: (arg: string) => any;
   selectMovie: (arg: string) => any;
-  // searchMovies: () => MovieItem[];
   setReleasedToggle: Dispatch<SetStateAction<boolean>>;
   setRatingToggle: Dispatch<SetStateAction<boolean>>;
-  // sortMovies: (movies: MovieItem[]) => MovieItem[];
 }
 
 const initialContext: MoviesContext = {
@@ -52,18 +48,11 @@ const initialContext: MoviesContext = {
   apiError: '',
   selectedMovieId: '',
   selectedMovie: null,
-  getMovies: () => {},
   setFilterValue: (arg) => {},
   setSearchError: (arg) => {},
   selectMovie: (arg) => {},
-  // searchMovies: () => {
-  //   return [];
-  // },
   setReleasedToggle: () => {},
   setRatingToggle: () => {},
-  // sortMovies: (movies) => {
-  //   return [];
-  // },
 };
 
 export const MoviesContext =
@@ -99,6 +88,7 @@ const MoviesProvider = ({
         setApiError(error?.message);
       }
     );
+
     res?.data && setMovies(res?.data);
     setmoviesIsLoading(false);
   };
@@ -108,11 +98,13 @@ const MoviesProvider = ({
       setExpandIsLoading(true);
       setApiError('');
       setSeletedMovie(null);
+
       const res = await apiGetMovieById(id).catch(
         function (error) {
           setApiError(error.response.data.error);
         }
       );
+
       res?.data && setSeletedMovie(res?.data[0]);
       setExpandIsLoading(false);
     }
@@ -124,10 +116,6 @@ const MoviesProvider = ({
     setQueryStringUrl('selectedMovieId', selectedMovieId);
     setExpandIsLoading(false);
   };
-
-  // useEffect(() => {
-  //   searchMovies()
-  // }, [filterValue]);
 
   useEffect(() => {
     selectedMovieId && getMovieById(selectedMovieId);
@@ -152,14 +140,11 @@ const MoviesProvider = ({
         selectedMovie,
         ratingToggle,
         releasedToggle,
-        getMovies,
         setFilterValue,
         setSearchError,
         selectMovie,
-        // searchMovies,
         setReleasedToggle,
         setRatingToggle,
-        // sortMovies,
       }}
     >
       {children}

@@ -1,4 +1,6 @@
 import React, { ReactNode, useState } from 'react';
+import { XSvg } from '../../assets/svg/x-svg';
+import { ExpandSvg } from '../../assets/svg/expand-svg';
 
 type CollapseProps = {
   openTitle: string;
@@ -27,37 +29,7 @@ const Collapse: React.FC<CollapseProps> = ({
           {isCollapsed ? closeTitle : openTitle}
         </h3>
         <span className='transform rotate-0'>
-          {isCollapsed ? (
-            <svg
-              className='w-4 h-4 text-gray-500 transform rotate-180'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M6 18L18 6M6 6l12 12'
-              ></path>
-            </svg>
-          ) : (
-            <svg
-              className='w-4 h-4 text-gray-500'
-              fill='none'
-              stroke='currentColor'
-              viewBox='0 0 24 24'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M19 9l-7 7-7-7'
-              ></path>
-            </svg>
-          )}
+          {isCollapsed ? <XSvg /> : <ExpandSvg />}
         </span>
       </div>
       {isCollapsed && (

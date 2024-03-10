@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 type ToggleProps = {
   title: string;
-  defaultChecked?: boolean;
+  defaultChecked?: Boolean;
   onChange?: (checked: boolean) => void;
 };
 

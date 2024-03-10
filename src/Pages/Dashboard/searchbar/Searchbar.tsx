@@ -10,6 +10,8 @@ const Searchbar: React.FC = () => {
   const {
     filterValue,
     searchError,
+    releasedToggle,
+    ratingToggle,
     setFilterValue,
     setReleasedToggle,
     setRatingToggle,
@@ -36,10 +38,12 @@ const Searchbar: React.FC = () => {
             <h3 className='font-medium'>Sort By:</h3>
             <div className='flex flex-row'>
               <Toggle
+                defaultChecked={ratingToggle}
                 title={'Rating'}
                 onChange={setRatingToggle}
               />
               <Toggle
+                defaultChecked={releasedToggle}
                 title={'Release Date'}
                 onChange={setReleasedToggle}
               />
