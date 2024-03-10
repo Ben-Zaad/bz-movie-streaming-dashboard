@@ -31,12 +31,12 @@ const Searchbar: React.FC = () => {
             <h3>Sort By:</h3>
             <div className='flex flex-row'>
               <Toggle
-                title={'Release Date'}
-                onChange={setReleasedToggle}
-              />
-              <Toggle
                 title={'Rating'}
                 onChange={setRatingToggle}
+              />
+              <Toggle
+                title={'Release Date'}
+                onChange={setReleasedToggle}
               />
             </div>
           </div>

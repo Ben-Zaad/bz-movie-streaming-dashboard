@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { MovieItem } from '../../types/types';
 import { MoviesContext } from '../../customHooks/moviesContext/MoviesContext';
 import { SimpleLoader } from '../../components/loaders/SimpleLoader';
-import { sanitizeHTML } from '../../utils/htm-utils';
+import { sanitizeHTML } from '../../utils/html-utils';
 import { Rating } from '../../components/ui/Rating';
 
 type PopupMovieItemProps = {
