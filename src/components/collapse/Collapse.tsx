@@ -18,7 +18,7 @@ const Collapse: React.FC<CollapseProps> = ({
   };
 
   return (
-    <div className='border border-gray-300 p-2 mb-2 rounded'>
+    <div className='p-2 mb-2 rounded'>
       <div
         className='flex items-center justify-between cursor-pointer'
         onClick={toggleCollapse}
@@ -26,10 +26,10 @@ const Collapse: React.FC<CollapseProps> = ({
         <h3 className='text-lg font-semibold'>
           {isCollapsed ? closeTitle : openTitle}
         </h3>
-        <span>
+        <span className='transform rotate-0'>
           {isCollapsed ? (
             <svg
-              className='w-4 h-4 text-gray-500'
+              className='w-4 h-4 text-gray-500 transform rotate-180'
               fill='none'
               stroke='currentColor'
               viewBox='0 0 24 24'
@@ -61,9 +61,7 @@ const Collapse: React.FC<CollapseProps> = ({
         </span>
       </div>
       {isCollapsed && (
-        <div className='mt-2 border-t border-gray-300 pt-2'>
-          {children}
-        </div>
+        <div className='mt-2 pt-2'>{children}</div>
       )}
     </div>
   );

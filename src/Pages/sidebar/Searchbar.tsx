@@ -13,7 +13,7 @@ const Searchbar: React.FC = () => {
     setRatingToggle,
   } = useContext(MoviesContext);
   return (
-    <div className='flex flex-col justify-end xl:w-full bg-slate-200'>
+    <div className='flex flex-col justify-end xl:w-full bg-slate-200 '>
       <Collapse
         openTitle='Show Search Options'
         closeTitle='Hide Search Options'

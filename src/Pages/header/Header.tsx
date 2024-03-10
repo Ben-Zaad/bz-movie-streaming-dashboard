@@ -7,7 +7,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = (props) => {
   return (
-    <div className='flex flex-row bg-slate-200 h-30 sticky top-0 z-10 overflow-hidden'>
+    <div className='flex flex-row bg-slate-200 h-30 sticky top-0 z-10 '>
       <img
         className='h-20 sm:h-24 rounded-full p-2'
         src={logo}
