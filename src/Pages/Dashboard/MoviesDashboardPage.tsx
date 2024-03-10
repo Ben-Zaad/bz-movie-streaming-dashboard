@@ -24,7 +24,7 @@ export const MoviesDashboardPage = () => {
   return (
     <div>
       <Header title='BZ Movie Dashboard' />
-      <div className='overflow-y-scroll'>
+      <div>
         <BackToTopButton />
         <PageTitle title='Explore Your Next Movies And TV Shows'></PageTitle>
         <Searchbar />
