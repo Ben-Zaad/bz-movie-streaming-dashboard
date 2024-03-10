@@ -25,21 +25,20 @@ export const searchMovies = (
 
 export const sortMovies = (
   movies: any[],
-  releasedToggle: Boolean,
-  ratingToggle: Boolean
+  togglesArray: any[]
 ) => {
   let sortedArray = movies;
-  if (releasedToggle) {
-    sortedArray = sortArrayByCategory(
-      sortedArray,
-      'released'
-    );
-  }
-  if (ratingToggle) {
-    sortedArray = sortArrayByCategory(
-      sortedArray,
-      'rating'
-    );
-  }
+
+  togglesArray.forEach(
+    (el: { toggle: Boolean; category: string }) => {
+      if (el.toggle) {
+        sortedArray = sortArrayByCategory(
+          sortedArray,
+          el.category
+        );
+      }
+    }
+  );
+
   return sortedArray;
 };

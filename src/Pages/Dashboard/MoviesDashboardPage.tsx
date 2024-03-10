@@ -29,8 +29,6 @@ export const MoviesDashboardPage = () => {
     releasedToggle,
     ratingToggle,
     selectMovie,
-    // searchMovies,
-    // sortMovies,
     setSearchError,
   } = useContext(MoviesContext);
 
@@ -38,24 +36,16 @@ export const MoviesDashboardPage = () => {
     useState(movies);
 
   useEffect(() => {
-    if (filterValue.length > 0) {
-      setFiltedMovies(
-        sortMovies(
-          searchMovies(movies, filterValue, setSearchError),
-          releasedToggle,
-          ratingToggle
-        )
-      );
-    } else {
-      setFiltedMovies(
-        sortMovies(
-          searchMovies(movies, '', setSearchError),
-          releasedToggle,
-          ratingToggle
-        )
-      );
-    }
-  }, [filterValue]);
+    setFiltedMovies(
+      sortMovies(
+        searchMovies(movies, filterValue, setSearchError),
+        [
+          { toggle: releasedToggle, category: 'released' },
+          { toggle: ratingToggle, category: 'rating' },
+        ]
+      )
+    );
+  }, [filterValue, releasedToggle, ratingToggle]);
 
   return (
     <div>
