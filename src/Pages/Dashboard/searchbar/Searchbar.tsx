@@ -1,23 +1,27 @@
 // Sidebar.tsx
 import React, { useContext } from 'react';
-import { CustomInput } from '../../components/input/CustomInput';
-import Toggle from '../../components/buttons/Toggle';
-import { MoviesContext } from '../../customHooks/moviesContext/MoviesContext';
-import Collapse from '../../components/collapse/Collapse';
+import { CustomInput } from '../../../components/input/CustomInput';
+import Toggle from '../../../components/buttons/Toggle';
+import { MoviesContext } from '../../../customHooks/moviesContext/MoviesContext';
+import Collapse from '../../../components/collapse/Collapse';
+import { InputError } from '../../../components/errors/InputError';
 
 const Searchbar: React.FC = () => {
   const {
     filterValue,
+    searchError,
     setFilterValue,
     setReleasedToggle,
     setRatingToggle,
   } = useContext(MoviesContext);
   return (
-    <div className='flex flex-col justify-end xl:w-full bg-slate-200 '>
+    <div className='flex flex-col justify-end xl:w-full bg-slate-100 '>
       <Collapse
         openTitle='Show Search Options'
         closeTitle='Hide Search Options'
       >
+        <InputError searchError={searchError} />
+
         <div className='flex flex-col sm:flex-row p-4'>
           <div className='w-3/12'>
             <CustomInput

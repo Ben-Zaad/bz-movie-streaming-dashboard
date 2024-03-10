@@ -1,5 +1,5 @@
-import { MovieItem } from '../../types/types';
-import { Rating } from '../../components/ui/Rating';
+import { MovieItem } from '../../../types/types';
+import { Rating } from '../../../components/ui/Rating';
 
 type DashboardMovieItemProps = {
   item: MovieItem;

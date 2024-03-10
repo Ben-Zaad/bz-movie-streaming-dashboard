@@ -1,14 +1,15 @@
 import { useContext } from 'react';
 import { MoviesContext } from '../../customHooks/moviesContext/MoviesContext';
 import { BackToTopButton } from '../../components/buttons/BackToTopButton';
-import { DashboardMovieItem } from './DashboardMovieItem';
+import { DashboardMovieItem } from './items/DashboardMovieItem';
 import { MovieItem } from '../../types/types';
 import Popup from '../../components/popups/Popup';
-import { PopupMovieItem } from './PopupMovieItem';
-import Header from '../header/Header';
+import { PopupMovieItem } from './items/PopupMovieItem';
+import Header from './header/Header';
 import { SimpleLoader } from '../../components/loaders/SimpleLoader';
-import Searchbar from '../sidebar/Searchbar';
+import Searchbar from './searchbar/Searchbar';
 import PageTitle from '../../components/text/PageTitle';
+import Footer from './footer/Footer';
 
 export const MoviesDashboardPage = () => {
   const {
@@ -58,6 +59,7 @@ export const MoviesDashboardPage = () => {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

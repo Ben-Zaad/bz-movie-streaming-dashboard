@@ -6,7 +6,6 @@ describe('sanitizeHTML', () => {
     const unsafeHTML =
       '<script>alert("Hello, world!");</script>';
 
-    // Call the sanitizeHTML function
     const sanitizedHTML = sanitizeHTML(unsafeHTML);
 
     // Assert that the sanitized HTML doesn't contain the script tag
@@ -17,10 +16,7 @@ describe('sanitizeHTML', () => {
   });
 
   it('should handle empty input', () => {
-    // Input an empty string
     const emptyHTML = '';
-
-    // Call the sanitizeHTML function
     const sanitizedHTML = sanitizeHTML(emptyHTML);
 
     // Assert that the result is also an empty string

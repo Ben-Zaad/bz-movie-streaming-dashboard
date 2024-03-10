@@ -114,7 +114,8 @@ const MoviesProvider = ({
   };
 
   const searchMovies = () => {
-    return movies.filter((movie) => {
+    setSearchError('');
+    const filteredMovies = movies.filter((movie) => {
       return (
         movie.title
           .toLowerCase()
@@ -123,6 +124,12 @@ const MoviesProvider = ({
         movie.released.includes(filterValue)
       );
     });
+    if (filteredMovies.length === 0) {
+      setSearchError(
+        'Sorry, No Item matches this inpus, try typing something else'
+      );
+    }
+    return filteredMovies;
   };
 
   const sortMovies = (movies: MovieItem[]) => {
