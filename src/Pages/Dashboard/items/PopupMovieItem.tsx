@@ -42,17 +42,17 @@ export const PopupMovieItem: React.FC<
             <h2 className='text-lg font-semibold mb-2'>
               {title}
             </h2>
+            <div className='text-l'>
+              {formatTimeDuration(runtime)}
+            </div>
             <div
-              className='text-gray-600 mb-2 overflow-auto'
+              className='text-gray-600 mb-2 overflow-auto pt-2'
               dangerouslySetInnerHTML={{
                 __html: sanitizedSynopsis,
               }}
             />
             <div className='text-gray-700 mb-2'>
               <div className=''>
-                <div className='text-l'>
-                  {formatTimeDuration(runtime)}
-                </div>
                 <Rating rating={rating} maxRating='10' />
               </div>
               <p>

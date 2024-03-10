@@ -41,7 +41,7 @@ export const MoviesDashboardPage = () => {
             />
           </Popup>
         )}
-        <div className='flex flex-wrap justify-center w-5/5'>
+        <div className='flex flex-wrap justify-center w-5/5 xl:min-h-80	'>
           {moviesIsLoading ? (
             <SimpleLoader />
           ) : (

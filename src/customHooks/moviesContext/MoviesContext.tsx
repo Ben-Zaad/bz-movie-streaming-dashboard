@@ -154,7 +154,8 @@ const MoviesProvider = ({
   useEffect(() => {}, []);
 
   useEffect(() => {
-    getMovieById(selectedMovieId);
+    console.log('FIND ME', selectedMovieId);
+    selectedMovieId && getMovieById(selectedMovieId);
     // eslint-disable-next-line
   }, []);
 

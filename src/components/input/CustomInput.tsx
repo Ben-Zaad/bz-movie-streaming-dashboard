@@ -8,8 +8,8 @@ type CustomInputProps = {
 export const CustomInput = (props: CustomInputProps) => {
   const { label, value, setValue } = props;
   return (
-    <div className='justify-around bg-slate-100 sm:w-screen'>
-      <div className='flex flex-col sm-flex-row'>
+    <div className='justify-around bg-slate-100 pr-2'>
+      <div className='flex flex-col'>
         <label htmlFor='small-input' className='min-w-80'>
           {label}
         </label>
