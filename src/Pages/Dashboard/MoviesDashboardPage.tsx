@@ -2,15 +2,18 @@ import { useContext } from 'react';
 import { MoviesContext } from '../../customHooks/moviesContext/MoviesContext';
 import { BackToTopButton } from '../../components/buttons/BackToTopButton';
 import { DashboardMovieItem } from './DashboardMovieItem';
-import { MovieItem } from './types';
+import { MovieItem } from '../../types/types';
 import Popup from '../../components/popups/Popup';
 import { PopupMovieItem } from './PopupMovieItem';
-import Header from '../../components/header/Header';
+import Header from '../header/Header';
 import { SimpleLoader } from '../../components/loaders/SimpleLoader';
+import CustomSidebar from '../sidebar/Searchbar';
+import PageTitle from '../../components/text/PageTitle';
 
 export const MoviesDashboardPage = () => {
   const {
     moviesIsLoading,
+    expandIsLoading,
     selectedMovieId,
     selectedMovie,
     selectMovie,
@@ -19,8 +22,10 @@ export const MoviesDashboardPage = () => {
   } = useContext(MoviesContext);
 
   return (
-    <div className='overflow-x-hide'>
-      <Header />
+    <div className='overflow-x-hidden'>
+      <Header title='BZ Movie Dashboard' />
+      <PageTitle title='Explore Your Next Movies And TV Shows'></PageTitle>
+      <CustomSidebar />
       {selectedMovieId && selectedMovie?.id && (
         <Popup
           isOpen={!!selectedMovie.id}
@@ -28,18 +33,8 @@ export const MoviesDashboardPage = () => {
           returnText='Back To List'
         >
           <PopupMovieItem
-            title={selectedMovie.title}
-            id={selectedMovie.id}
-            image={selectedMovie.image}
-            synopsis={selectedMovie.synopsis}
-            rating={selectedMovie.rating}
-            type={selectedMovie.type}
-            released={selectedMovie.released}
-            runtime={selectedMovie.runtime}
-            largeimage={selectedMovie.largeimage}
-            unogsdate={selectedMovie.unogsdate}
-            imdbid={selectedMovie.imdbid}
-            download={selectedMovie.download}
+            item={selectedMovie}
+            isLoading={expandIsLoading}
           />
         </Popup>
       )}
@@ -53,18 +48,8 @@ export const MoviesDashboardPage = () => {
               return (
                 <DashboardMovieItem
                   key={movie.id}
-                  title={movie.title}
-                  id={movie.id}
-                  image={movie.image}
-                  synopsis={movie.synopsis}
-                  rating={movie.rating}
-                  type={movie.type}
-                  released={movie.released}
-                  runtime={movie.runtime}
-                  largeimage={movie.largeimage}
-                  unogsdate={movie.unogsdate}
-                  imdbid={movie.imdbid}
-                  download={movie.download}
+                  item={movie}
+                  callback={selectMovie}
                 />
               );
             }

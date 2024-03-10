@@ -1,18 +1,20 @@
-import React from 'react';
-import { MovieItem } from './types';
-import { useContext } from 'react';
-import { MoviesContext } from '../../customHooks/moviesContext/MoviesContext';
+import { MovieItem } from '../../types/types';
 import { Rating } from '../../components/ui/Rating';
 
+type DashboardMovieItemProps = {
+  item: MovieItem;
+  callback: (arg: string) => any;
+};
+
 export const DashboardMovieItem = (
-  feedProps: MovieItem
+  feedProps: DashboardMovieItemProps
 ) => {
-  const { id, title, rating, released, image } = feedProps;
-  const { selectMovie } = useContext(MoviesContext);
+  const { id, title, rating, released, image } =
+    feedProps.item;
 
   return (
     <div
-      onClick={() => selectMovie(id)}
+      onClick={() => feedProps.callback(id)}
       className='block bg-white border border-gray-300 rounded-md overflow-hidden shadow-md w-64 m-4 hover:shadow-lg cursor-pointer'
       title='Click to expand'
     >

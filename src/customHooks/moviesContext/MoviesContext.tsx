@@ -13,7 +13,7 @@ import {
   apiGetAllMovies,
   apiGetMovieById,
 } from '../../api/moviesService';
-import { MovieItem } from '../../Pages/Dashboard/types';
+import { MovieItem } from '../../types/types';
 
 interface MoviesProviderProps {
   children: React.ReactNode;
