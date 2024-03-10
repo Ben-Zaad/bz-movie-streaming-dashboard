@@ -10,7 +10,10 @@ export const CustomInput = (props: CustomInputProps) => {
   return (
     <div className='justify-around bg-slate-100 pr-2'>
       <div className='flex flex-col'>
-        <label htmlFor='small-input' className='min-w-80'>
+        <label
+          htmlFor='small-input'
+          className='min-w-80 font-medium'
+        >
           {label}
         </label>
         <div className='flex items-center'>

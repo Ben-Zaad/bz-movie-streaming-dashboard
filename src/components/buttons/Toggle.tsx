@@ -23,7 +23,7 @@ const Toggle: React.FC<ToggleProps> = ({
   };
 
   return (
-    <div className='w-40 '>
+    <div className=''>
       <label className='cursor-pointer'>
         <span className='ms-3 text-sm font-medium text-gray-900 dark:text-gray-300'>
           {title}
