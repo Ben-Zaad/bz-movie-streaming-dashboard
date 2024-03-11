@@ -1,10 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  createContext,
-  useEffect,
-  useState,
-} from 'react';
+import { createContext, useEffect, useState } from 'react';
 import {
   getQueryParams,
   setQueryStringUrl,
@@ -13,31 +7,16 @@ import {
   apiGetAllMovies,
   apiGetMovieById,
 } from '../../api/moviesService';
-import { MovieItem } from '../../types/types';
+import {
+  IMoviesContext,
+  MovieItem,
+} from '../../types/types';
 
 interface MoviesProviderProps {
   children: React.ReactNode;
 }
 
-interface MoviesContext {
-  moviesIsLoading: Boolean;
-  expandIsLoading: Boolean;
-  releasedToggle: Boolean;
-  ratingToggle: Boolean;
-  movies: MovieItem[];
-  filterValue: string;
-  searchError: string;
-  apiError: string;
-  selectedMovieId: string;
-  selectedMovie: MovieItem | null;
-  setFilterValue: (arg: string) => any;
-  setSearchError: (arg: string) => any;
-  selectMovie: (arg: string) => any;
-  setReleasedToggle: Dispatch<SetStateAction<boolean>>;
-  setRatingToggle: Dispatch<SetStateAction<boolean>>;
-}
-
-const initialContext: MoviesContext = {
+const initialContext: IMoviesContext = {
   moviesIsLoading: false,
   expandIsLoading: false,
   releasedToggle: false,
@@ -48,15 +27,15 @@ const initialContext: MoviesContext = {
   apiError: '',
   selectedMovieId: '',
   selectedMovie: null,
-  setFilterValue: (arg) => {},
-  setSearchError: (arg) => {},
-  selectMovie: (arg) => {},
+  setFilterValue: (arg: string) => {},
+  setSearchError: (arg: string) => {},
+  selectMovie: (arg: string) => {},
   setReleasedToggle: () => {},
   setRatingToggle: () => {},
 };
 
 export const MoviesContext =
-  createContext<MoviesContext>(initialContext);
+  createContext<IMoviesContext>(initialContext);
 
 const MoviesProvider = ({
   children,

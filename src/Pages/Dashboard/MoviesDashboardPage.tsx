@@ -45,7 +45,13 @@ export const MoviesDashboardPage = () => {
         ]
       )
     );
-  }, [filterValue, releasedToggle, ratingToggle]);
+  }, [
+    movies,
+    filterValue,
+    releasedToggle,
+    ratingToggle,
+    setSearchError,
+  ]);
 
   return (
     <div>

@@ -3,7 +3,7 @@ import { Rating } from '../../../components/ui/Rating';
 
 type DashboardMovieItemProps = {
   item: MovieItem;
-  callback: (arg: string) => any;
+  callback: (arg: any) => any;
 };
 
 export const DashboardMovieItem = (
