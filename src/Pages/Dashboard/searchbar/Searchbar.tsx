@@ -24,7 +24,7 @@ const Searchbar: React.FC = () => {
           <ErrorBar errorMessage={searchError} />
         )}
 
-        <div className='flex flex-col sm:flex-row p-4'>
+        <div className='flex flex-col  p-4'>
           <div className='w-3/12'>
             <CustomInput
               placeholder='Type here to search'
